@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TabbedPages.ToDoPage"
+             xmlns:local="clr-namespace:TabbedPages"
+             Title="ToDo">
+    <ContentPage.Content>        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding Tasks}" Grid.Row="1" VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="CenterAndExpand" MinimumHeightRequest="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text=" --> " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Button Text="Remove" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
+                                        local:DeleteButtonBehavior.AttachBehavior="true"/>
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Add task" Grid.Row="0" Command="{Binding GoToCreateTaskPageCommand}" VerticalOptions="Center"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

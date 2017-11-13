@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TabbedPages.CreateTaskPage"
+             Title="Task Edit">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Name" Grid.Column="0" Grid.Row="0" />
+            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Model.Name}"/>
+            <Label Text="Description" Grid.Column="0" Grid.Row="1" />
+            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description}"/>
+
+            <Button Text="Save" Command="{Binding SaveTaskCommand}"  Grid.Row="2" Grid.Column="0"/>
+            <Button Text="Back" Command="{Binding GoBackCommand}" Grid.Row="2" Grid.Column="1"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
