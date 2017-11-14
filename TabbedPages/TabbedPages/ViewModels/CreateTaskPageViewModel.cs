@@ -1,23 +1,23 @@
 ﻿using Prism.Commands;
+using Prism.Events;
+using Prism.Navigation;
 using System;
-using System.ComponentModel;
 using TabbedPages.Models;
 using Xamarin.Forms;
 
 namespace TabbedPages.ViewModels
 {
-    public class CreateTaskPageViewModel: INotifyPropertyChanged, IDisposable
+    public class CreateTaskPageViewModel: ViewModelBase, IDisposable
     {
-        private readonly INavigation _navigation;
         private DelegateCommand _saveTaskCommand;
         private DelegateCommand _goBackCommand;
         private TaskModel _model;
 
-        public CreateTaskPageViewModel(INavigation navigation)
+        public CreateTaskPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator) :
+            base(navigationService, eventAggregator)
         {
-            _navigation = navigation;
             _saveTaskCommand = new DelegateCommand(SaveTask);
-            _goBackCommand = new DelegateCommand(async () => { await _navigation.PopAsync(); });
+            _goBackCommand = new DelegateCommand(async () => { await NavigationService.GoBackAsync(); });
             Model = new TaskModel();
         }
 
@@ -37,11 +37,10 @@ namespace TabbedPages.ViewModels
             set
             {
                 _model = value;
-                NotifyChange(nameof(Model));
+                SetProperty(ref _model, value, nameof(Model));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void SaveTask()
         {
@@ -53,13 +52,18 @@ namespace TabbedPages.ViewModels
             }
         }
 
-        private void NotifyChange(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public void Dispose()
         {
         }
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            TaskModel model;
+            parameters.TryGetValue(Events.EditTaskEvent, out model);
+            if(model != null)
+               Model = model;
+        }
+
     }
 }

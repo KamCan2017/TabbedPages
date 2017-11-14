@@ -1,34 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using Prism.Unity;
+using TabbedPages.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TabbedPages
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        public App()
+        public App() : this(null) { }
+
+        public App(IPlatformInitializer initializer) : base(initializer) { }
+
+        protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            MainPage = new TabbedPages.MainPage();
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
-        protected override void OnStart()
+        protected override void RegisterTypes()
         {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+            Container.RegisterTypeForNavigation<NavigationPage>();
+            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<ToDoPage>();
+            Container.RegisterTypeForNavigation<CreateTaskPage>();        }
     }
 }

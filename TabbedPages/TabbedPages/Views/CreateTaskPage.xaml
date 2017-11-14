@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TabbedPages.CreateTaskPage"
+             x:Class="TabbedPages.Views.CreateTaskPage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
              Title="Task Edit">
     <ContentPage.Content>
         <Grid>
@@ -16,9 +18,9 @@
             </Grid.RowDefinitions>
 
             <Label Text="Name" Grid.Column="0" Grid.Row="0" />
-            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Model.Name}"/>
+            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Model.Name, Mode=TwoWay}"/>
             <Label Text="Description" Grid.Column="0" Grid.Row="1" />
-            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description}"/>
+            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description, Mode=TwoWay}"/>
 
             <Button Text="Save" Command="{Binding SaveTaskCommand}"  Grid.Row="2" Grid.Column="0"/>
             <Button Text="Back" Command="{Binding GoBackCommand}" Grid.Row="2" Grid.Column="1"/>

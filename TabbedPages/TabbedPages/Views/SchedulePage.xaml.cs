@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace TabbedPages
+namespace TabbedPages.Views
 {
 	public partial class SchedulePage : ContentPage
 	{

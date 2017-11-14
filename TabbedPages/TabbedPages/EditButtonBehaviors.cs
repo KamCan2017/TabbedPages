@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Prism.Navigation;
+using System;
 using TabbedPages.Models;
 using TabbedPages.ViewModels;
 using Xamarin.Forms;
 
 namespace TabbedPages
 {
-    public static class DeleteButtonBehavior
+    public class EditButtonBehavior
     {
         public static readonly BindableProperty AttachBehaviorProperty =
         BindableProperty.CreateAttached(
             "AttachBehavior",
             typeof(bool),
-            typeof(DeleteButtonBehavior),
+            typeof(EditButtonBehavior),
             false,
             propertyChanged: OnAttachBehaviorChanged);
 
@@ -47,9 +48,8 @@ namespace TabbedPages
         
         static void Bindable_Clicked(object sender, EventArgs e)
         {
-            var vm = (Application.Current.MainPage as NavigationPage).CurrentPage.BindingContext as MainPageViewModel;
-            vm.GetEventAggregator()
-            .GetEvent<RemoveTaskEvent>().Publish((sender as Button).BindingContext as TaskModel);
+           var vm = (Application.Current.MainPage as NavigationPage).CurrentPage.BindingContext as MainPageViewModel;
+            vm.GetEventAggregator().GetEvent<EditTaskEvent>().Publish((sender as Button).BindingContext as TaskModel);
         }
     }
 }

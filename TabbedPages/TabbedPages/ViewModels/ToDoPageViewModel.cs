@@ -1,28 +1,37 @@
 ﻿using Prism.Commands;
+using Prism.Events;
+using Prism.Navigation;
 using System.Collections.ObjectModel;
 using TabbedPages.Models;
 using Xamarin.Forms;
 
 namespace TabbedPages.ViewModels
 {
-    public class ToDoPageViewModel
+    public class ToDoPageViewModel: ViewModelBase
     {
         private ObservableCollection<TaskModel> _tasks;
         private DelegateCommand _goToCreateTaskPageCommand;
-        private readonly INavigation _navigation;
-        public ToDoPageViewModel(INavigation navigation)
+
+        public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator):
+            base(navigationService, eventAggregator)
         {
-            _navigation = navigation;
 
             MessagingCenter.Subscribe<TaskModel>(this, Events.ToDoTaskEvent, item => AddTask(item));
 
             _goToCreateTaskPageCommand = new DelegateCommand(async () => 
             {
-                await _navigation.PushAsync(new CreateTaskPage());
+                await NavigationService.NavigateAsync("CreateTaskPage");
             });
 
+            EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe(item => RemoveTask(item));
+            EventAggregator.GetEvent<EditTaskEvent>().Subscribe(async (item) => 
+            {
+                NavigationParameters parameters = new NavigationParameters();
+                parameters.Add(Events.EditTaskEvent, item);
 
-            MessagingCenter.Subscribe<TaskModel>(this, Events.RemoveTaskEvent, item => RemoveTask(item));
+                await NavigationService.NavigateAsync("CreateTaskPage", parameters);
+            }
+            );
 
             Tasks = new ObservableCollection<TaskModel>();
         }
@@ -35,13 +44,14 @@ namespace TabbedPages.ViewModels
             get { return _tasks; }
             set
             {
-                _tasks = value;
+                SetProperty(ref _tasks, value);
             }
         }
-
+       
         private void AddTask(TaskModel item)
         {
-            Tasks.Add(item);
+            if(!Tasks.Contains(item))
+               Tasks.Add(item);
         }   
         
         private void RemoveTask(TaskModel item)

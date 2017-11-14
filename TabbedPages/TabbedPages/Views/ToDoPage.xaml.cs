@@ -1,8 +1,7 @@
-﻿using TabbedPages.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TabbedPages
+namespace TabbedPages.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ToDoPage : ContentPage
@@ -10,8 +9,8 @@ namespace TabbedPages
 		public ToDoPage ()
 		{
 			InitializeComponent ();
-            var vm = new ToDoPageViewModel(Navigation);
-            BindingContext = vm;
+            //var vm = new ToDoPageViewModel(Navigation);
+            //BindingContext = vm;
 		}          
     }
 }

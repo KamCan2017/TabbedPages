@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using Prism.Unity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TabbedPages;
 
 namespace TabbedPages.UWP
 {
@@ -21,7 +24,15 @@ namespace TabbedPages.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new TabbedPages.App());
+            LoadApplication(new  TabbedPages.App(new UwpInitializer()));
+        }
+    }
+
+    public class UwpInitializer : IPlatformInitializer
+    {
+        public void RegisterTypes(IUnityContainer container)
+        {
+
         }
     }
 }
