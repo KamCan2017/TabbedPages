@@ -16,10 +16,12 @@ namespace TabbedPages.ViewModels
             EventAggregator = eventAggregator;
         }
 
+     
         public virtual void Destroy()
         {
         }
 
+       
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
         }

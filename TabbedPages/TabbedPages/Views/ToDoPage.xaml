@@ -21,10 +21,13 @@
                                 <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text=" --> " VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Button Text="Remove" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
-                                        local:DeleteButtonBehavior.AttachBehavior="true"/>
-                                <Button Text="Edit" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
-                                        local:EditButtonBehavior.AttachBehavior="true"/>
+                                <Button VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
+                                        local:EditButtonBehavior.AttachBehavior="true"
+                                         Image="{StaticResource EditImage}"/>
+                                <Button VerticalOptions="Center" HorizontalOptions="Center"
+                                        local:DeleteButtonBehavior.AttachBehavior="true"
+                                        Image="{StaticResource DeleteImage}" BackgroundColor="Transparent"/>
+
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

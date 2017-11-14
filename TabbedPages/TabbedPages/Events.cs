@@ -5,7 +5,7 @@ namespace TabbedPages
 {
     public static class Events
     {
-        public const string ToDoTaskEvent = "ToDoTaskEvent";
+        public const string AddTaskEvent = "AddTaskEvent";
         public const string EditTaskEvent = "EditTaskEvent";
     }
 
@@ -15,6 +15,11 @@ namespace TabbedPages
     }
 
     public class EditTaskEvent : PubSubEvent<TaskModel>
+    {
+
+    }
+
+    public class AddTaskEvent : PubSubEvent<TaskModel>
     {
 
     }

@@ -5,7 +5,16 @@
              x:Class="TabbedPages.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <OnPlatform x:Key="DeleteImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="delete.png"
+                    WinPhone="Assets\delete.png"/>
+            <OnPlatform x:Key="EditImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="edit.png"
+                    WinPhone="Assets\edit.png"/>
+        </ResourceDictionary>
 
-	</Application.Resources>
+    </Application.Resources>
 </prism:Application>

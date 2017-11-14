@@ -4,14 +4,19 @@
              x:Class="TabbedPages.Views.CreateTaskPage"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:converter="clr-namespace:TabbedPages.Converter"
              Title="Task Edit">
+    
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -20,10 +25,15 @@
             <Label Text="Name" Grid.Column="0" Grid.Row="0" />
             <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Model.Name, Mode=TwoWay}"/>
             <Label Text="Description" Grid.Column="0" Grid.Row="1" />
-            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description, Mode=TwoWay}"/>
+            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description, Mode=TwoWay}" HeightRequest="50"/>
+            <Label Text="Start" Grid.Column="0" Grid.Row="2"/>
+            <DatePicker Grid.Column="1" Grid.Row="2" Date="{Binding Model.Start}"/>
+            <Label Text="End" Grid.Column="0" Grid.Row="3"/>
+            <DatePicker Grid.Column="1" Grid.Row="3" Date="{Binding Model.End}"/>
 
-            <Button Text="Save" Command="{Binding SaveTaskCommand}"  Grid.Row="2" Grid.Column="0"/>
-            <Button Text="Back" Command="{Binding GoBackCommand}" Grid.Row="2" Grid.Column="1"/>
+            <Button Text="Save" Command="{Binding SaveTaskCommand}"  Grid.Row="4" Grid.Column="0"/>
+            <Button Text="Back" Command="{Binding GoBackCommand}" Grid.Row="4" Grid.Column="1"/>
+            <Button Text="Remove" Command="{Binding RemoveTaskCommand}"  Grid.Row="5" Grid.Column="0"/>
 
         </Grid>
     </ContentPage.Content>

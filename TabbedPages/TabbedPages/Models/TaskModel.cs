@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using System;
 
 namespace TabbedPages.Models
 {
@@ -6,6 +7,14 @@ namespace TabbedPages.Models
     {
         private string _name;
         private string _description;
+        private DateTime _start;
+        private DateTime _end;
+
+        public TaskModel()
+        {
+            Start = DateTime.Now;
+            End = Start.AddDays(30);
+        }
 
         public string Name
         {
@@ -25,6 +34,30 @@ namespace TabbedPages.Models
             }
         }
 
-        public bool IsValid { get { return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description); } }
+        public DateTime Start
+        {
+            get { return _start; }
+            set
+            {
+                SetProperty(ref _start, value);
+            }
+        }
+
+        public DateTime End
+        {
+            get { return _end; }
+            set
+            {
+                SetProperty(ref _end, value);
+            }
+        }
+
+        public bool IsValid {
+            get
+            {
+                return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description)
+                       && Start <= End;
+            }
+        }
     }
 }

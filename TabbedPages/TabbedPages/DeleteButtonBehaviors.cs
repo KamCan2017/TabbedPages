@@ -45,11 +45,18 @@ namespace TabbedPages
         }
 
         
-        static void Bindable_Clicked(object sender, EventArgs e)
+        static async void Bindable_Clicked(object sender, EventArgs e)
         {
-            var vm = (Application.Current.MainPage as NavigationPage).CurrentPage.BindingContext as MainPageViewModel;
-            vm.GetEventAggregator()
-            .GetEvent<RemoveTaskEvent>().Publish((sender as Button).BindingContext as TaskModel);
+            var result = await Application.Current.MainPage.DisplayAlert(
+                          "Delete Task",
+                          "Delete the selected task?",
+                          "Yes", "No");
+            if (result)
+            {
+                var vm = (Application.Current.MainPage as NavigationPage).CurrentPage.BindingContext as MainPageViewModel;
+                vm.GetEventAggregator()
+                .GetEvent<RemoveTaskEvent>().Publish((sender as Button).BindingContext as TaskModel);
+            }
         }
     }
 }

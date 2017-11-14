@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using TabbedPages.Models;
 using Xamarin.Forms;
 
@@ -16,14 +17,17 @@ namespace TabbedPages.ViewModels
             base(navigationService, eventAggregator)
         {
 
-            MessagingCenter.Subscribe<TaskModel>(this, Events.ToDoTaskEvent, item => AddTask(item));
-
             _goToCreateTaskPageCommand = new DelegateCommand(async () => 
             {
                 await NavigationService.NavigateAsync("CreateTaskPage");
             });
 
-            EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe(item => RemoveTask(item));
+            EventAggregator.GetEvent<AddTaskEvent>().Subscribe(item => AddTask(item));
+            EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe((item) => 
+            {
+                    RemoveTask(item);
+            }
+            );
             EventAggregator.GetEvent<EditTaskEvent>().Subscribe(async (item) => 
             {
                 NavigationParameters parameters = new NavigationParameters();
@@ -56,7 +60,7 @@ namespace TabbedPages.ViewModels
         
         private void RemoveTask(TaskModel item)
         {
-            Tasks.Remove(item);
+               Tasks.Remove(item);
         }
     }
 }
