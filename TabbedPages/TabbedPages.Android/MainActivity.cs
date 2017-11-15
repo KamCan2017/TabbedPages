@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using TabbedPages;
 
 namespace TabbedPages.Droid
 {

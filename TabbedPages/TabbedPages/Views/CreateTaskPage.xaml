@@ -10,7 +10,6 @@
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -20,20 +19,26 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Label Text="Name" Grid.Column="0" Grid.Row="0" />
-            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Model.Name, Mode=TwoWay}"/>
-            <Label Text="Description" Grid.Column="0" Grid.Row="1" />
-            <Editor Grid.Column="1" Grid.Row="1" Text="{Binding Model.Description, Mode=TwoWay}" HeightRequest="50"/>
-            <Label Text="Start" Grid.Column="0" Grid.Row="2"/>
-            <DatePicker Grid.Column="1" Grid.Row="2" Date="{Binding Model.Start}"/>
-            <Label Text="End" Grid.Column="0" Grid.Row="3"/>
-            <DatePicker Grid.Column="1" Grid.Row="3" Date="{Binding Model.End}"/>
+            <Entry Grid.Column="0" Grid.Row="1" Text="{Binding Model.Name, Mode=TwoWay}"/>
+            <Label Text="Description" Grid.Column="0" Grid.Row="2" />
+            <Editor Grid.Column="0" Grid.Row="3" Text="{Binding Model.Description, Mode=TwoWay}" HeightRequest="50"/>
+            <Label Text="Start" Grid.Column="0" Grid.Row="4"/>
+            <DatePicker Grid.Column="0" Grid.Row="5" Date="{Binding Model.Start}"/>
+            <Label Text="End" Grid.Column="0" Grid.Row="6"/>
+            <DatePicker Grid.Column="0" Grid.Row="7" Date="{Binding Model.End}"/>
 
-            <Button Text="Save" Command="{Binding SaveTaskCommand}"  Grid.Row="4" Grid.Column="0"/>
-            <Button Text="Back" Command="{Binding GoBackCommand}" Grid.Row="4" Grid.Column="1"/>
-            <Button Text="Remove" Command="{Binding RemoveTaskCommand}"  Grid.Row="5" Grid.Column="0"/>
+            <StackLayout Grid.Row="8" Orientation="Horizontal">
+                <Button Text="Save" Command="{Binding SaveTaskCommand}"  />
+                <Button Text="Remove" Command="{Binding RemoveTaskCommand}"  />
+                <Button Text="Back" Command="{Binding GoBackCommand}" />
+            </StackLayout>
 
         </Grid>
     </ContentPage.Content>
