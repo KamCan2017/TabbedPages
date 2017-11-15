@@ -1,4 +1,5 @@
-﻿using Prism.Unity;
+﻿using Microsoft.Practices.Unity;
+using Prism.Unity;
 using TabbedPages.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,6 +25,10 @@ namespace TabbedPages
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<ToDoPage>();
-            Container.RegisterTypeForNavigation<CreateTaskPage>();        }
+            Container.RegisterTypeForNavigation<CreateTaskPage>();
+
+            Container.RegisterType<ITaskAPiService, TaskAPiService>(new ContainerControlledLifetimeManager());
+
+        }
     }
 }

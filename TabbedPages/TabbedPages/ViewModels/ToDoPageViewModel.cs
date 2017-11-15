@@ -2,9 +2,8 @@
 using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using TabbedPages.Mappper;
 using TabbedPages.Models;
-using Xamarin.Forms;
 
 namespace TabbedPages.ViewModels
 {
@@ -12,10 +11,15 @@ namespace TabbedPages.ViewModels
     {
         private ObservableCollection<TaskModel> _tasks;
         private DelegateCommand _goToCreateTaskPageCommand;
+        private readonly ITaskAPiService _taskAPiService;
+        private ITaskMapper _taskMapper = new TaskMapper();
 
-        public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator):
+
+        public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
+             ITaskAPiService taskAPiService) :
             base(navigationService, eventAggregator)
         {
+            _taskAPiService = taskAPiService;
 
             _goToCreateTaskPageCommand = new DelegateCommand(async () => 
             {
@@ -61,6 +65,12 @@ namespace TabbedPages.ViewModels
         private void RemoveTask(TaskModel item)
         {
                Tasks.Remove(item);
+        }
+
+        public async override void OnNavigatedTo(NavigationParameters parameters)
+        {
+          var tasks =  await _taskAPiService.FindAllAsync();
+            Tasks = new ObservableCollection<TaskModel>(_taskMapper.Convert(tasks));
         }
     }
 }

@@ -2,6 +2,9 @@
 using Prism.Events;
 using Prism.Navigation;
 using System;
+using System.Threading.Tasks;
+using TabbedPages.Daos;
+using TabbedPages.Mappper;
 using TabbedPages.Models;
 using Xamarin.Forms;
 
@@ -13,11 +16,15 @@ namespace TabbedPages.ViewModels
         private DelegateCommand _goBackCommand;
         private DelegateCommand _removeTaskCommand;
         private TaskModel _model;
+        private readonly ITaskAPiService _taskAPiService;
+        private ITaskMapper _taskMapper = new TaskMapper();
 
-        public CreateTaskPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator) :
+        public CreateTaskPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
+            ITaskAPiService taskAPiService) :
             base(navigationService, eventAggregator)
         {
-            _saveTaskCommand = new DelegateCommand(SaveTask);
+            _taskAPiService = taskAPiService;
+            _saveTaskCommand = new DelegateCommand(async () => await SaveTask());
             _goBackCommand = new DelegateCommand(async () => { await NavigationService.GoBackAsync(); });
             _removeTaskCommand = new DelegateCommand(async () => 
             {
@@ -75,11 +82,13 @@ namespace TabbedPages.ViewModels
             }
         }
 
-        private void SaveTask()
+        private async Task SaveTask()
         {
             if (Model.IsValid)
             {
-                EventAggregator.GetEvent<AddTaskEvent>().Publish(Model);
+                TaskDao dao = _taskMapper.Convert(Model);
+
+                var obj = await _taskAPiService.SaveToDoItemAsync(dao);
                 GoBackCommand.Execute();
             }
         }
