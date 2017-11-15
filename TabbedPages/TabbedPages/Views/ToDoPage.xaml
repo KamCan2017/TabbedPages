@@ -10,9 +10,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding Tasks}" Grid.Row="1" VerticalOptions="CenterAndExpand"
+            <ListView ItemsSource="{Binding Tasks}" Grid.Row="2" VerticalOptions="CenterAndExpand"
                       HorizontalOptions="CenterAndExpand" MinimumHeightRequest="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -33,7 +34,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Add task" Grid.Row="0" Command="{Binding GoToCreateTaskPageCommand}" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="0">
+                <Button Text="Add task"  Command="{Binding GoToCreateTaskPageCommand}" VerticalOptions="Center"/>
+                <Button Text="Refresh"  Command="{Binding RefreshTaskPageCommand}" VerticalOptions="Center"/>
+            </StackLayout>
+            <ActivityIndicator Color="Blue" IsRunning="{Binding IsBusy}" Grid.Row="1" VerticalOptions="Center" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

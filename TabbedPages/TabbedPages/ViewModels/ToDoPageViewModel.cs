@@ -14,7 +14,8 @@ namespace TabbedPages.ViewModels
         private DelegateCommand _goToCreateTaskPageCommand;
         private readonly ITaskAPiService _taskAPiService;
         private ITaskMapper _taskMapper = new TaskMapper();
-
+        private bool _isBusy;
+        private DelegateCommand _refreshTaskPageCommand;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
              ITaskAPiService taskAPiService) :
@@ -26,6 +27,8 @@ namespace TabbedPages.ViewModels
             {
                 await NavigationService.NavigateAsync("CreateTaskPage");
             });
+
+            _refreshTaskPageCommand = new DelegateCommand(async () => await LoadData());
 
             EventAggregator.GetEvent<AddTaskEvent>().Subscribe(item => AddTask(item));
             EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe(async (item) => 
@@ -47,6 +50,8 @@ namespace TabbedPages.ViewModels
 
         public DelegateCommand GoToCreateTaskPageCommand { get { return _goToCreateTaskPageCommand; } }
 
+        public DelegateCommand RefreshTaskPageCommand { get { return _refreshTaskPageCommand; } }
+
 
         public ObservableCollection<TaskModel> Tasks
         {
@@ -54,6 +59,15 @@ namespace TabbedPages.ViewModels
             set
             {
                 SetProperty(ref _tasks, value);
+            }
+        }
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                SetProperty(ref _isBusy, value);
             }
         }
        
@@ -65,14 +79,18 @@ namespace TabbedPages.ViewModels
         
         private async Task RemoveTask(TaskModel item)
         {
+            IsBusy = true;
             await _taskAPiService.DeleteToDoItemAsync(item.ID.ToString());
             await LoadData();
+            IsBusy = false;
         }
 
         private async Task LoadData()
         {
+            IsBusy = true;
             var tasks = await _taskAPiService.FindAllAsync();
             Tasks = new ObservableCollection<TaskModel>(_taskMapper.Convert(tasks));
+            IsBusy = false;
         }
 
         public async override void OnNavigatedTo(NavigationParameters parameters)
