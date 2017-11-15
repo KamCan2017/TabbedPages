@@ -42,7 +42,7 @@ namespace TabbedPages.ViewModels
             }
             );
 
-            Tasks = new ObservableCollection<TaskModel>();
+            Task.Run(async () => await LoadData());
         }
 
         public DelegateCommand GoToCreateTaskPageCommand { get { return _goToCreateTaskPageCommand; } }
