@@ -16,6 +16,7 @@ namespace TabbedPages.Models
             End = Start.AddDays(30);
         }
 
+        public Guid ID { get; set; }
         public string Name
         {
             get { return _name; }

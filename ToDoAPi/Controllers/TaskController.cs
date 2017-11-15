@@ -48,6 +48,11 @@ namespace ToDoAPi.Controllers
                 return BadRequest(ModelState);
             }
 
+            if(_toDoItems.Keys.Contains(item.ID))
+            {
+                _toDoItems[item.ID] = item;
+                return Ok(item);
+            }
             item.ID = Guid.NewGuid();
             _toDoItems[item.ID] = item;
             CreatedAtRoute("GetById", new { id = item.ID }, item);

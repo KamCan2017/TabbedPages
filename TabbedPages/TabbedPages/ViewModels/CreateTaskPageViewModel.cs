@@ -36,7 +36,7 @@ namespace TabbedPages.ViewModels
                                  "Yes", "No");
                     if (result)
                     {
-                        EventAggregator.GetEvent<RemoveTaskEvent>().Publish(Model);
+                        await _taskAPiService.DeleteToDoItemAsync(Model.ID.ToString());
                         GoBackCommand.Execute();
                     }
                 }

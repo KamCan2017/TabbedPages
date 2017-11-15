@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using TabbedPages.Mappper;
 using TabbedPages.Models;
 
@@ -27,9 +28,9 @@ namespace TabbedPages.ViewModels
             });
 
             EventAggregator.GetEvent<AddTaskEvent>().Subscribe(item => AddTask(item));
-            EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe((item) => 
+            EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe(async (item) => 
             {
-                    RemoveTask(item);
+                    await RemoveTask(item);
             }
             );
             EventAggregator.GetEvent<EditTaskEvent>().Subscribe(async (item) => 
@@ -62,15 +63,21 @@ namespace TabbedPages.ViewModels
                Tasks.Add(item);
         }   
         
-        private void RemoveTask(TaskModel item)
+        private async Task RemoveTask(TaskModel item)
         {
-               Tasks.Remove(item);
+            await _taskAPiService.DeleteToDoItemAsync(item.ID.ToString());
+            await LoadData();
+        }
+
+        private async Task LoadData()
+        {
+            var tasks = await _taskAPiService.FindAllAsync();
+            Tasks = new ObservableCollection<TaskModel>(_taskMapper.Convert(tasks));
         }
 
         public async override void OnNavigatedTo(NavigationParameters parameters)
         {
-          var tasks =  await _taskAPiService.FindAllAsync();
-            Tasks = new ObservableCollection<TaskModel>(_taskMapper.Convert(tasks));
+            await LoadData();
         }
     }
 }

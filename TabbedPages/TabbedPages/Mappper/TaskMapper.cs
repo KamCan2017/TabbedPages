@@ -11,6 +11,7 @@ namespace TabbedPages.Mappper
         {
             TaskDao dao = new TaskDao()
             {
+                ID = model.ID,
                 Name = model.Name,
                 Description = model.Description,
                 Start = model.Start,
@@ -24,6 +25,7 @@ namespace TabbedPages.Mappper
         {
             TaskModel model = new TaskModel()
             {
+                ID = dao.ID,
                 Name = dao.Name,
                 Description = dao.Description,
                 Start = dao.Start,
