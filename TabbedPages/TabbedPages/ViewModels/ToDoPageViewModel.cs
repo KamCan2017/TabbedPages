@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TabbedPages.Mappper;
@@ -17,6 +18,7 @@ namespace TabbedPages.ViewModels
         private bool _isBusy;
         private DelegateCommand _refreshTaskPageCommand;
         private DelegateCommand _loadPageCommand;
+        private TaskModel _selectedItem;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
              ITaskAPiService taskAPiService) :
@@ -38,16 +40,21 @@ namespace TabbedPages.ViewModels
                     await RemoveTask(item);
             }
             );
-            EventAggregator.GetEvent<EditTaskEvent>().Subscribe(async (item) => 
+            EventAggregator.GetEvent<EditTaskEvent>().Subscribe(async (item) =>
             {
-                NavigationParameters parameters = new NavigationParameters();
-                parameters.Add(Events.EditTaskEvent, item);
-
-                await NavigationService.NavigateAsync("CreateTaskPage", parameters);
+                await NavigateToEditPage(item);
             }
             );
 
-            //Task.Run(async () => await LoadData());
+            EventAggregator.GetEvent<CloneTaskEvent>().Subscribe(async (item) =>
+            {
+                IsBusy = true;
+                var cloneObj = _taskMapper.Convert(item);
+                cloneObj.ID = Guid.Empty;
+                await _taskAPiService.SaveToDoItemAsync(cloneObj);
+                await LoadData();
+            }
+           );
         }
 
 
@@ -75,7 +82,15 @@ namespace TabbedPages.ViewModels
                 SetProperty(ref _isBusy, value);
             }
         }
-       
+
+        private async Task NavigateToEditPage(TaskModel item)
+        {
+            NavigationParameters parameters = new NavigationParameters();
+            parameters.Add(Events.EditTaskEvent, item);
+
+            await NavigationService.NavigateAsync("CreateTaskPage", parameters);
+        }
+
         private void AddTask(TaskModel item)
         {
             if(!Tasks.Contains(item))

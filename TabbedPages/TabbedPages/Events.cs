@@ -24,4 +24,9 @@ namespace TabbedPages
 
     }
 
+    public class CloneTaskEvent : PubSubEvent<TaskModel>
+    {
+
+    }
+
 }

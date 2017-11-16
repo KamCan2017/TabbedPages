@@ -35,7 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\CloneButtonBehaviors.cs" />
     <Compile Include="Behaviors\PageBehavior.cs" />
+    <Compile Include="Converter\DateConverter.cs" />
     <Compile Include="ITaskAPiService.cs" />
     <Compile Include="Mappper\ITaskMapper.cs" />
     <Compile Include="Mappper\TaskMapper.cs" />

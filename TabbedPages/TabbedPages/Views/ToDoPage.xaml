@@ -5,8 +5,15 @@
              xmlns:local="clr-namespace:TabbedPages"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:behaviors="clr-namespace:TabbedPages.Behaviors"
+             xmlns:converter="clr-namespace:TabbedPages.Converter"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="ToDo">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>        
         <Grid>
             <Grid.RowDefinitions>
@@ -21,14 +28,20 @@
                         <ViewCell>
                         <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Label Text=" --> " VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text=" " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="From " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Start, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text=" To " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding End, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Button VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
                                         behaviors:EditButtonBehavior.AttachBehavior="true"
                                          Image="{StaticResource EditImage}"/>
                                 <Button VerticalOptions="Center" HorizontalOptions="Center"
                                         behaviors:DeleteButtonBehavior.AttachBehavior="true"
                                         Image="{StaticResource DeleteImage}" BackgroundColor="Transparent"/>
+                                <Button VerticalOptions="Center" HorizontalOptions="Center"
+                                        behaviors:CloneButtonBehavior.AttachBehavior="true"
+                                        Image="{StaticResource CloneImage}" BackgroundColor="Transparent"/>
 
                             </StackLayout>
                         </ViewCell>
