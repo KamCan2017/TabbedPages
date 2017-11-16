@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TabbedPages.Views"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TabbedPages.Views.MainPage">
+             x:Class="TabbedPages.Views.MainPage"
+            Title="ToDO App">
     <NavigationPage Title="Schedule">
         <x:Arguments>
             <local:SchedulePage />

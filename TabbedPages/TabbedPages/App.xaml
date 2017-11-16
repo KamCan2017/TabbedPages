@@ -22,6 +22,10 @@
                     x:TypeArguments="FileImageSource"
                     Android="reference.png"
                     WinPhone="Assets\reference.png"/>
+            <OnPlatform x:Key="AppointmentImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="appointment.png"
+                    WinPhone="Assets\appointment.png"/>
         </ResourceDictionary>
 
     </Application.Resources>

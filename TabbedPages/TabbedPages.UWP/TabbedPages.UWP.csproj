@@ -108,6 +108,7 @@
     <None Include="TabbedPages.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\appointment.png" />
     <Content Include="Assets\clone.png" />
     <Content Include="Assets\delete.png" />
     <Content Include="Assets\edit.png" />

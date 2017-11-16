@@ -25,6 +25,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
+                                <Image Source="{StaticResource AppointmentImage}" VerticalOptions="End" HorizontalOptions="Center"/>
                                 <Label Text="From " VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text="{Binding Start, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text=" To " VerticalOptions="Center" HorizontalOptions="Center"/>
