@@ -3,7 +3,7 @@ using TabbedPages.Models;
 using TabbedPages.ViewModels;
 using Xamarin.Forms;
 
-namespace TabbedPages
+namespace TabbedPages.Behaviors
 {
     public static class DeleteButtonBehavior
     {

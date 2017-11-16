@@ -14,7 +14,8 @@ namespace TabbedPages.ViewModels
     {
         private DelegateCommand _saveTaskCommand;
         private DelegateCommand _goBackCommand;
-        private DelegateCommand _removeTaskCommand;
+        private DelegateCommand _deleteTaskCommand;
+        private DelegateCommand _resetTaskCommand;
         private TaskModel _model;
         private readonly ITaskAPiService _taskAPiService;
         private ITaskMapper _taskMapper = new TaskMapper();
@@ -24,24 +25,39 @@ namespace TabbedPages.ViewModels
             base(navigationService, eventAggregator)
         {
             _taskAPiService = taskAPiService;
-            _saveTaskCommand = new DelegateCommand(async () => await SaveTask());
+            _saveTaskCommand = new DelegateCommand(async () => await SaveTask(), CanSaveExecuted);
             _goBackCommand = new DelegateCommand(async () => { await NavigationService.GoBackAsync(); });
-            _removeTaskCommand = new DelegateCommand(async () => 
+            _deleteTaskCommand = new DelegateCommand(async () =>
             {
-                if (Model.IsValid)
-                {
-                    var result = await Application.Current.MainPage.DisplayAlert(
+                var result = await Application.Current.MainPage.DisplayAlert(
                                  "Delete Task",
                                  "Delete the selected task?",
                                  "Yes", "No");
-                    if (result)
-                    {
-                        await _taskAPiService.DeleteToDoItemAsync(Model.ID.ToString());
-                        GoBackCommand.Execute();
-                    }
+                if (result)
+                {
+                    await _taskAPiService.DeleteToDoItemAsync(Model.ID.ToString());
+                    GoBackCommand.Execute();
                 }
-            });
-            Model = new TaskModel();
+            }, () => {return (Model != null && Model.IsValid); });
+
+            _resetTaskCommand = new DelegateCommand(async() => 
+            {
+                var obj = await _taskAPiService.FindByIdAsync(Model.ID.ToString());
+                if (obj == null)
+                {
+                    Model.Name = string.Empty;
+                    Model.Description = string.Empty;
+                    Model.Start = DateTime.Now;
+                    Model.End = DateTime.Now.AddDays(30);
+                }
+                else
+                    Model = _taskMapper.Convert(obj);
+            }, () => { return Model != null; });
+        }
+
+        private bool CanSaveExecuted()
+        {
+            return Model != null && Model.IsValid;
         }
 
         ~CreateTaskPageViewModel()
@@ -54,7 +70,9 @@ namespace TabbedPages.ViewModels
 
         public DelegateCommand GoBackCommand { get { return _goBackCommand; } }
 
-        public DelegateCommand RemoveTaskCommand { get { return _removeTaskCommand; } }
+        public DelegateCommand DeleteTaskCommand { get { return _deleteTaskCommand; } }
+
+        public DelegateCommand ResetTaskCommand { get { return _resetTaskCommand; } }
 
         public TaskModel Model
         {
@@ -64,6 +82,9 @@ namespace TabbedPages.ViewModels
                 SetProperty(ref _model, value, nameof(Model));
                 if(_model != null)
                     _model.PropertyChanged += _model_PropertyChanged;
+                SaveTaskCommand.RaiseCanExecuteChanged();
+                DeleteTaskCommand.RaiseCanExecuteChanged();
+                ResetTaskCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -80,6 +101,8 @@ namespace TabbedPages.ViewModels
                                   "cancel");
                 }
             }
+            SaveTaskCommand.RaiseCanExecuteChanged();
+            DeleteTaskCommand.RaiseCanExecuteChanged();
         }
 
         private async Task SaveTask()
@@ -102,8 +125,10 @@ namespace TabbedPages.ViewModels
         {
             TaskModel model;
             parameters.TryGetValue(Events.EditTaskEvent, out model);
-            if(model != null)
-               Model = model;
+            if (model != null)
+                Model = model;
+            else
+                Model = new TaskModel();
         }
 
     }

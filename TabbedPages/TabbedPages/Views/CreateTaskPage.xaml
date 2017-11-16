@@ -36,7 +36,8 @@
 
             <StackLayout Grid.Row="8" Orientation="Horizontal">
                 <Button Text="Save" Command="{Binding SaveTaskCommand}"  />
-                <Button Text="Remove" Command="{Binding RemoveTaskCommand}"  />
+                <Button Text="Reset" Command="{Binding ResetTaskCommand}" />
+                <Button Text="Delete" Command="{Binding DeleteTaskCommand}"  />
                 <Button Text="Back" Command="{Binding GoBackCommand}" />
             </StackLayout>
 

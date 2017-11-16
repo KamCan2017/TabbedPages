@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\PageBehavior.cs" />
     <Compile Include="ITaskAPiService.cs" />
     <Compile Include="Mappper\ITaskMapper.cs" />
     <Compile Include="Mappper\TaskMapper.cs" />
@@ -43,14 +44,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Daos\TaskDao.cs" />
-    <Compile Include="EditButtonBehaviors.cs" />
+    <Compile Include="Behaviors\EditButtonBehaviors.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Db\ISQLite.cs" />
-    <Compile Include="DeleteButtonBehaviors.cs" />
+    <Compile Include="Behaviors\DeleteButtonBehaviors.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

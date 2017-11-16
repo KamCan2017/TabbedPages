@@ -24,7 +24,7 @@ namespace ToDoAPi.Controllers
             }
             else
             {
-                return NotFound();
+                return Ok();
             }
         }
 

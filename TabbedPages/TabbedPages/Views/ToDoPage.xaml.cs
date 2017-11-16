@@ -9,8 +9,6 @@ namespace TabbedPages.Views
 		public ToDoPage ()
 		{
 			InitializeComponent ();
-            //var vm = new ToDoPageViewModel(Navigation);
-            //BindingContext = vm;
-		}          
+		}
     }
 }

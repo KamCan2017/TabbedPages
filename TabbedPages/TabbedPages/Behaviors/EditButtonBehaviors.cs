@@ -1,10 +1,9 @@
-﻿using Prism.Navigation;
-using System;
+﻿using System;
 using TabbedPages.Models;
 using TabbedPages.ViewModels;
 using Xamarin.Forms;
 
-namespace TabbedPages
+namespace TabbedPages.Behaviors
 {
     public class EditButtonBehavior
     {

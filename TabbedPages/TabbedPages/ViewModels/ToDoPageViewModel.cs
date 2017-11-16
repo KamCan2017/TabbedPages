@@ -16,6 +16,7 @@ namespace TabbedPages.ViewModels
         private ITaskMapper _taskMapper = new TaskMapper();
         private bool _isBusy;
         private DelegateCommand _refreshTaskPageCommand;
+        private DelegateCommand _loadPageCommand;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
              ITaskAPiService taskAPiService) :
@@ -29,6 +30,7 @@ namespace TabbedPages.ViewModels
             });
 
             _refreshTaskPageCommand = new DelegateCommand(async () => await LoadData());
+            _loadPageCommand = new DelegateCommand(async () => await LoadData());
 
             EventAggregator.GetEvent<AddTaskEvent>().Subscribe(item => AddTask(item));
             EventAggregator.GetEvent<RemoveTaskEvent>().Subscribe(async (item) => 
@@ -45,12 +47,15 @@ namespace TabbedPages.ViewModels
             }
             );
 
-            Task.Run(async () => await LoadData());
+            //Task.Run(async () => await LoadData());
         }
+
 
         public DelegateCommand GoToCreateTaskPageCommand { get { return _goToCreateTaskPageCommand; } }
 
         public DelegateCommand RefreshTaskPageCommand { get { return _refreshTaskPageCommand; } }
+
+        public DelegateCommand LoadCommand { get { return _loadPageCommand; } }
 
 
         public ObservableCollection<TaskModel> Tasks

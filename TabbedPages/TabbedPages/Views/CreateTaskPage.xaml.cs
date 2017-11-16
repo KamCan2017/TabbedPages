@@ -9,8 +9,6 @@ namespace TabbedPages.Views
 		public CreateTaskPage ()
 		{
 			InitializeComponent ();
-            //var vm = new CreateTaskPageViewModel(Navigation);
-            //BindingContext = vm;
 		}  
     }
 }

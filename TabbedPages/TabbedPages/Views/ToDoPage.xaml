@@ -4,6 +4,7 @@
              x:Class="TabbedPages.Views.ToDoPage"
              xmlns:local="clr-namespace:TabbedPages"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:behaviors="clr-namespace:TabbedPages.Behaviors"
              prism:ViewModelLocator.AutowireViewModel="True"
              Title="ToDo">
     <ContentPage.Content>        
@@ -23,10 +24,10 @@
                                 <Label Text=" --> " VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Button VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
-                                        local:EditButtonBehavior.AttachBehavior="true"
+                                        behaviors:EditButtonBehavior.AttachBehavior="true"
                                          Image="{StaticResource EditImage}"/>
                                 <Button VerticalOptions="Center" HorizontalOptions="Center"
-                                        local:DeleteButtonBehavior.AttachBehavior="true"
+                                        behaviors:DeleteButtonBehavior.AttachBehavior="true"
                                         Image="{StaticResource DeleteImage}" BackgroundColor="Transparent"/>
 
                             </StackLayout>
@@ -41,4 +42,8 @@
             <ActivityIndicator Color="Blue" IsRunning="{Binding IsBusy}" Grid.Row="1" VerticalOptions="Center" />
         </Grid>
     </ContentPage.Content>
+    <ContentPage.Behaviors>
+        <behaviors:PageBehavior/>
+    </ContentPage.Behaviors>
+
 </ContentPage>

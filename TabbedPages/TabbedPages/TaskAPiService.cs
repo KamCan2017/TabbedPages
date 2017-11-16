@@ -12,8 +12,11 @@ namespace TabbedPages
     public class TaskAPiService : ITaskAPiService
     {
         private HttpClient _client = new HttpClient();
-         const string _restUrl = "http://todoapi.azurewebsites.net/api/tasks/";
+        //const string _baseUrl = ""http://localhost:63005";
+        // const string _restUrl = "http://localhost:63005/api/tasks/";
 
+        const string _baseUrl = "http://todoapi.azurewebsites.net/";
+        const string _restUrl = "http://todoapi.azurewebsites.net/api/tasks/";
         public TaskAPiService()
         {
             Init();
@@ -21,7 +24,7 @@ namespace TabbedPages
         private void Init()
         {
             _client.MaxResponseContentBufferSize = 256000;
-            _client.BaseAddress = new Uri("http://todoapi.azurewebsites.net/");
+            _client.BaseAddress = new Uri(_baseUrl);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -64,6 +67,29 @@ namespace TabbedPages
 
             }
             catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<TaskDao> FindByIdAsync(string id)
+        {
+            try
+            {
+                var uri = new Uri(string.Format(_restUrl + "{0}", id));
+
+                HttpResponseMessage response = await _client.GetAsync(uri);
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    var newContent = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<TaskDao>(newContent);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
             {
 
                 throw;
