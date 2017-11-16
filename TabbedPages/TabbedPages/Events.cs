@@ -7,6 +7,7 @@ namespace TabbedPages
     {
         public const string AddTaskEvent = "AddTaskEvent";
         public const string EditTaskEvent = "EditTaskEvent";
+        public const string OpenScheduleEvent = "OpenScheduleEvent";
     }
 
     public class RemoveTaskEvent : PubSubEvent<TaskModel>
@@ -25,6 +26,11 @@ namespace TabbedPages
     }
 
     public class CloneTaskEvent : PubSubEvent<TaskModel>
+    {
+
+    }
+
+    public class OpenScheduleEvent : PubSubEvent<ScheduleModel>
     {
 
     }

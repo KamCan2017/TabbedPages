@@ -6,12 +6,12 @@ namespace TabbedPages.Behaviors
 {
     public class PageBehavior: Behavior<ContentPage>
     {
-        private ToDoPageViewModel _vm;
+        private IPageLoaderViewModel _vm;
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
             bindable.Appearing += Bindable_Appearing;
-            _vm = bindable.BindingContext as ToDoPageViewModel;
+            _vm = bindable.BindingContext as IPageLoaderViewModel;
         }
 
         protected override void OnDetachingFrom(ContentPage bindable)

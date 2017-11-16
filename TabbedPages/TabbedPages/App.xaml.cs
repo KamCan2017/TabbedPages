@@ -26,6 +26,7 @@ namespace TabbedPages
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<ToDoPage>();
             Container.RegisterTypeForNavigation<CreateTaskPage>();
+            Container.RegisterTypeForNavigation<SchedulePage>();
 
             Container.RegisterType<ITaskAPiService, TaskAPiService>(new ContainerControlledLifetimeManager());
 

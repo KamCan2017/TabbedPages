@@ -2,12 +2,46 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 			 x:Class="TabbedPages.Views.SchedulePage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:behaviors="clr-namespace:TabbedPages.Behaviors"
+             xmlns:converter="clr-namespace:TabbedPages.Converter"
+             prism:ViewModelLocator.AutowireViewModel="True"
 			 Title="This Week">
-    
-	<ContentPage.Content>
-		<StackLayout>
-			<Label Text="This week's appointments go here" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-			<Button Text="Upcoming Appointments" Clicked="OnUpcomingAppointmentsButtonClicked" VerticalOptions="CenterAndExpand" />
-		</StackLayout>
-	</ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding Schedules}" Grid.Row="1" VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="CenterAndExpand" MinimumHeightRequest="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="From " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Start, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text=" To " VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding End, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Button Text="Reference" Command="{Binding OpenToDoPageCommand}"
+                                        Image="{StaticResource ReferenceImage}" BackgroundColor="Transparent"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ActivityIndicator Color="Blue" IsRunning="{Binding IsBusy}" Grid.Row="0" VerticalOptions="Center" />
+        </Grid>
+    </ContentPage.Content>
+
+    <ContentPage.Behaviors>
+        <behaviors:PageBehavior/>
+    </ContentPage.Behaviors>
+
 </ContentPage>

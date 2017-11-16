@@ -111,6 +111,7 @@
     <Content Include="Assets\clone.png" />
     <Content Include="Assets\delete.png" />
     <Content Include="Assets\edit.png" />
+    <Content Include="Assets\reference.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />

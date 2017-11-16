@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TabbedPages.Daos;
+using System.Linq;
 
 namespace TabbedPages
 {
@@ -107,7 +108,8 @@ namespace TabbedPages
                 if (response.IsSuccessStatusCode)
                 {
                     var newContent = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<TaskDao>>(newContent);
+                    var taks = JsonConvert.DeserializeObject<IEnumerable<TaskDao>>(newContent);
+                    return taks.OrderByDescending(p => p.Start).ToList();
                 }
 
                 return null;

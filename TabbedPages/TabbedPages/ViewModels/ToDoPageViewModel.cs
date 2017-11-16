@@ -3,13 +3,14 @@ using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using TabbedPages.Mappper;
 using TabbedPages.Models;
 
 namespace TabbedPages.ViewModels
 {
-    public class ToDoPageViewModel: ViewModelBase
+    public class ToDoPageViewModel : ViewModelBase, IPageLoaderViewModel
     {
         private ObservableCollection<TaskModel> _tasks;
         private DelegateCommand _goToCreateTaskPageCommand;
@@ -18,7 +19,7 @@ namespace TabbedPages.ViewModels
         private bool _isBusy;
         private DelegateCommand _refreshTaskPageCommand;
         private DelegateCommand _loadPageCommand;
-        private TaskModel _selectedItem;
+        private ScheduleModel _selectedSchedule;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
              ITaskAPiService taskAPiService) :
@@ -31,7 +32,11 @@ namespace TabbedPages.ViewModels
                 await NavigationService.NavigateAsync("CreateTaskPage");
             });
 
-            _refreshTaskPageCommand = new DelegateCommand(async () => await LoadData());
+            _refreshTaskPageCommand = new DelegateCommand(async () =>
+            {
+                _selectedSchedule = null;
+                await LoadData();
+            });
             _loadPageCommand = new DelegateCommand(async () => await LoadData());
 
             EventAggregator.GetEvent<AddTaskEvent>().Subscribe(item => AddTask(item));
@@ -50,11 +55,17 @@ namespace TabbedPages.ViewModels
             {
                 IsBusy = true;
                 var cloneObj = _taskMapper.Convert(item);
+                cloneObj.Name += "_cloned";
                 cloneObj.ID = Guid.Empty;
                 await _taskAPiService.SaveToDoItemAsync(cloneObj);
                 await LoadData();
             }
            );
+
+            eventAggregator.GetEvent<OpenScheduleEvent>().Subscribe( (item) =>
+            {
+                _selectedSchedule = item;
+            });
         }
 
 
@@ -110,12 +121,18 @@ namespace TabbedPages.ViewModels
             IsBusy = true;
             var tasks = await _taskAPiService.FindAllAsync();
             Tasks = new ObservableCollection<TaskModel>(_taskMapper.Convert(tasks));
+
+            if (_selectedSchedule != null)
+            {
+                var relatedTasks = Tasks.Where(p => p.Start == _selectedSchedule.Start && p.End == _selectedSchedule.End);
+                Tasks = new ObservableCollection<TaskModel>(relatedTasks);
+            }
             IsBusy = false;
         }
 
-        public async override void OnNavigatedTo(NavigationParameters parameters)
+        public  override void OnNavigatedTo(NavigationParameters parameters)
         {
-            await LoadData();
+            //await LoadData();
         }
     }
 }

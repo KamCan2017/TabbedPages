@@ -124,8 +124,7 @@ namespace TabbedPages.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             TaskModel model;
-            parameters.TryGetValue(Events.EditTaskEvent, out model);
-            if (model != null)
+            if(parameters.TryGetValue(Events.EditTaskEvent, out model))
                 Model = model;
             else
                 Model = new TaskModel();

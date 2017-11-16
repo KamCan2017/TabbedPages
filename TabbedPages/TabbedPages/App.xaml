@@ -18,6 +18,10 @@
                     x:TypeArguments="FileImageSource"
                     Android="clone.png"
                     WinPhone="Assets\clone.png"/>
+            <OnPlatform x:Key="ReferenceImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="reference.png"
+                    WinPhone="Assets\reference.png"/>
         </ResourceDictionary>
 
     </Application.Resources>
