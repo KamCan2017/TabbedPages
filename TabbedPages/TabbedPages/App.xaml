@@ -26,6 +26,18 @@
                     x:TypeArguments="FileImageSource"
                     Android="appointment.png"
                     WinPhone="Assets\appointment.png"/>
+            <OnPlatform x:Key="ToDoImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="ToDo.png"
+                    WinPhone="Assets\ToDo.png"/>
+            <OnPlatform x:Key="RefreshImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="refresh.png"
+                    WinPhone="Assets\refresh.png"/>
+            <OnPlatform x:Key="AddToDoImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="addToDo.png"
+                    WinPhone="Assets\addToDo.png"/>
         </ResourceDictionary>
 
     </Application.Resources>

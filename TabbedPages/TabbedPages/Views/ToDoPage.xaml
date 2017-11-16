@@ -20,6 +20,7 @@
                     <DataTemplate>
                         <ViewCell>
                         <StackLayout Orientation="Horizontal">
+                                <Image Source="{StaticResource ToDoImage}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <Button VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent"
                                         behaviors:EditButtonBehavior.AttachBehavior="true"
@@ -37,8 +38,10 @@
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout Orientation="Horizontal" Grid.Row="0">
-                <Button Text="Add task"  Command="{Binding GoToCreateTaskPageCommand}" VerticalOptions="Center"/>
-                <Button Text="Refresh"  Command="{Binding RefreshTaskPageCommand}" VerticalOptions="Center"/>
+                <Button Text="Add task"  Command="{Binding GoToCreateTaskPageCommand}" VerticalOptions="Center"
+                        Image="{StaticResource AddToDoImage}"/>
+                <Button Text="Refresh"  Command="{Binding RefreshTaskPageCommand}" VerticalOptions="Center"
+                        Image="{StaticResource RefreshImage}"/>
             </StackLayout>
             <ActivityIndicator Color="Blue" IsRunning="{Binding IsBusy}" Grid.Row="1" VerticalOptions="Center" />
         </Grid>
