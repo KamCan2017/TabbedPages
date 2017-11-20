@@ -41,6 +41,7 @@
     <Compile Include="Converter\DateConverter.cs" />
     <Compile Include="Db\DataBaseHelper.cs" />
     <Compile Include="ITaskAPiService.cs" />
+    <Compile Include="ITaskRepository.cs" />
     <Compile Include="Mappper\ITaskMapper.cs" />
     <Compile Include="Mappper\TaskMapper.cs" />
     <Compile Include="Models\ScheduleModel.cs" />
@@ -50,6 +51,7 @@
     </Compile>
     <Compile Include="Daos\TaskDao.cs" />
     <Compile Include="Behaviors\EditButtonBehaviors.cs" />
+    <Compile Include="TaskRepository.cs" />
     <Compile Include="TaskSQLiteService.cs" />
     <Compile Include="ViewModels\IPageLoaderViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />

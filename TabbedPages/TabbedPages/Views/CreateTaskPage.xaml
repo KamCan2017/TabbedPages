@@ -27,7 +27,7 @@
 
             <Label Text="Name" Grid.Column="0" Grid.Row="0" />
             <Entry Grid.Column="0" Grid.Row="1" Text="{Binding Model.Name, Mode=TwoWay}"/>
-            <Label Text="Description" Grid.Column="0" Grid.Row="2" />
+            <Label Text="Notes" Grid.Column="0" Grid.Row="2" />
             <Editor Grid.Column="0" Grid.Row="3" Text="{Binding Model.Description, Mode=TwoWay}" HeightRequest="50"/>
             <Label Text="Start" Grid.Column="0" Grid.Row="4"/>
             <DatePicker Grid.Column="0" Grid.Row="5" Date="{Binding Model.Start}"/>

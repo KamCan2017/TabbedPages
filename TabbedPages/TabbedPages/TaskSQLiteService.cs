@@ -1,72 +1,37 @@
-﻿using SQLite.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TabbedPages.Daos;
-using Xamarin.Forms;
 
 namespace TabbedPages
 {
     public class TaskSQLiteService : ITaskService
     {
 
-        private SQLiteConnection _database;
+        private ITaskRepository _taskRepository;
 
-        private IEnumerable<TaskDao> Tasks => _database.Table<TaskDao>().ToList();
-
-        public TaskSQLiteService()
+        public TaskSQLiteService(ITaskRepository taskRepository)
         {
-            _database =  DependencyService.Get<Db.ISQLite>().GetConnection();
-            _database.CreateTable<TaskDao>();
+            _taskRepository = taskRepository;
         }
 
         public async Task<bool> DeleteToDoItemAsync(string id)
         {
-            var dao = await FindByIdAsync(id);
-            int res = _database.Delete(dao);
-            return res == 1;
+            return await _taskRepository.DeleteToDoItemAsync(id);
         }
 
         public async Task<IEnumerable<TaskDao>> FindAllAsync()
         {
-            var tasks = await Task.Run(() => {
-                return Tasks;
-            });
-
-            return tasks;
+            return await _taskRepository.FindAllAsync();
         }
 
         public async Task<TaskDao> FindByIdAsync(string id)
         {
-            var dao = await Task.Run(() =>
-            {
-                return Tasks.FirstOrDefault(d => d.ID == Guid.Parse(id));
-            });
-
-            return dao;
+            return await _taskRepository.FindByIdAsync(id);
         }
 
         public async Task<TaskDao> SaveToDoItemAsync(TaskDao item)
         {
-            var dao = await Task.Run(() =>
-            {
-
-                if (item.ID == Guid.Empty)
-                {
-                    item.ID = Guid.NewGuid();
-                    _database.Insert(item);
-                }
-
-                else
-                {
-                    _database.Update(item);
-                }
-
-                return Tasks.FirstOrDefault(d => d.ID == item.ID);
-            });
-
-            return dao;
+            return await _taskRepository.SaveToDoItemAsync(item);
         }
     }
 }
