@@ -30,7 +30,7 @@ namespace TabbedPages
         public async Task<IEnumerable<TaskDao>> FindAllAsync()
         {
             var tasks = await Task.Run(() => {
-                return Tasks;
+                return Tasks.Where(p => !p.IsDeleted);
             });
 
             return tasks;
@@ -44,6 +44,15 @@ namespace TabbedPages
             });
 
             return dao;
+        }
+
+       public async Task<IEnumerable<TaskDao>> FindDeletedItemsAsync()
+        {
+            var tasks = await Task.Run(() => {
+                return Tasks.Where(p => p.IsDeleted);
+            });
+
+            return tasks;
         }
 
         public async Task<TaskDao> SaveToDoItemAsync(TaskDao item)

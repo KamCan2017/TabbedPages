@@ -16,4 +16,9 @@
             <local:ToDoPage />
         </x:Arguments>
     </NavigationPage>
+    <NavigationPage Title="Garbage">
+        <x:Arguments>
+            <local:GarbagePage />
+        </x:Arguments>
+    </NavigationPage>
 </TabbedPage>

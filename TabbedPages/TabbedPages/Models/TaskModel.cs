@@ -60,5 +60,7 @@ namespace TabbedPages.Models
                        && Start <= End;
             }
         }
+
+        public bool IsDeleted { get; set; }
     }
 }

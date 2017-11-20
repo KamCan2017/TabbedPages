@@ -29,6 +29,11 @@ namespace TabbedPages
             return await _taskRepository.FindByIdAsync(id);
         }
 
+        public async Task<IEnumerable<TaskDao>> FindDeletedItemsAsync()
+        {
+            return await _taskRepository.FindDeletedItemsAsync();
+        }
+
         public async Task<TaskDao> SaveToDoItemAsync(TaskDao item)
         {
             return await _taskRepository.SaveToDoItemAsync(item);

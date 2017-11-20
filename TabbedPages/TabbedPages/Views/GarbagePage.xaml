@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TabbedPages.Views.GarbagePage"
+             xmlns:local="clr-namespace:TabbedPages"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:behaviors="clr-namespace:TabbedPages.Behaviors"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="Task-Garbage">
+    <ContentPage.Content>        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding Tasks, Mode=TwoWay}" SelectedItem="{Binding SelectedTask}" Grid.Row="1" VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="CenterAndExpand" MinimumHeightRequest="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                                <Image Source="{StaticResource RestoreImage}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ActivityIndicator Color="Blue" IsRunning="{Binding IsBusy}" Grid.Row="0" VerticalOptions="Center" />
+        </Grid>
+    </ContentPage.Content>
+    <ContentPage.Behaviors>
+        <behaviors:PageBehavior/>
+    </ContentPage.Behaviors>
+
+</ContentPage>

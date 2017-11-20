@@ -121,5 +121,9 @@ namespace TabbedPages
             }
         }
 
+        public Task<IEnumerable<TaskDao>> FindDeletedItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

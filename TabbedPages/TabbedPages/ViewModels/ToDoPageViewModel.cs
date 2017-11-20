@@ -15,17 +15,18 @@ namespace TabbedPages.ViewModels
         private ObservableCollection<TaskModel> _tasks;
         private DelegateCommand _goToCreateTaskPageCommand;
         private readonly ITaskService _taskAPiService;
-        private ITaskMapper _taskMapper = new TaskMapper();
+        private ITaskMapper _taskMapper;
         private bool _isBusy;
         private DelegateCommand _refreshTaskPageCommand;
         private DelegateCommand _loadPageCommand;
         private ScheduleModel _selectedSchedule;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
-             ITaskService taskAPiService) :
+             ITaskService taskAPiService, ITaskMapper taskMapper) :
             base(navigationService, eventAggregator)
         {
             _taskAPiService = taskAPiService;
+            _taskMapper = taskMapper;
 
             _goToCreateTaskPageCommand = new DelegateCommand(async () => 
             {
@@ -111,7 +112,8 @@ namespace TabbedPages.ViewModels
         private async Task RemoveTask(TaskModel item)
         {
             IsBusy = true;
-            await _taskAPiService.DeleteToDoItemAsync(item.ID.ToString());
+            item.IsDeleted = true;
+            await _taskAPiService.SaveToDoItemAsync(_taskMapper.Convert(item));
             await LoadData();
             IsBusy = false;
         }

@@ -17,6 +17,8 @@ namespace TabbedPages.Daos
 
         public DateTime End { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 
 }

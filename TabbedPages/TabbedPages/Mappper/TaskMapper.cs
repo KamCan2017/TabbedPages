@@ -15,7 +15,8 @@ namespace TabbedPages.Mappper
                 Name = model.Name,
                 Description = model.Description,
                 Start = model.Start,
-                End = model.End
+                End = model.End,
+                IsDeleted = model.IsDeleted
             };
 
             return dao;
@@ -29,7 +30,9 @@ namespace TabbedPages.Mappper
                 Name = dao.Name,
                 Description = dao.Description,
                 Start = dao.Start,
-                End = dao.End
+                End = dao.End,
+                IsDeleted = dao.IsDeleted
+
             };
 
             return model;

@@ -116,6 +116,7 @@
     <Content Include="Assets\edit.png" />
     <Content Include="Assets\reference.png" />
     <Content Include="Assets\refresh.png" />
+    <Content Include="Assets\restore.png" />
     <Content Include="Assets\ToDo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />

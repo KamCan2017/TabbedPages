@@ -38,6 +38,10 @@
                     x:TypeArguments="FileImageSource"
                     Android="addToDo.png"
                     WinPhone="Assets\addToDo.png"/>
+            <OnPlatform x:Key="RestoreImage" 
+                    x:TypeArguments="FileImageSource"
+                    Android="restore.png"
+                    WinPhone="Assets\restore.png"/>
         </ResourceDictionary>
 
     </Application.Resources>

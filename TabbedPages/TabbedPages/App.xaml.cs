@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Unity;
+using TabbedPages.Mappper;
 using TabbedPages.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -27,7 +28,9 @@ namespace TabbedPages
             Container.RegisterTypeForNavigation<ToDoPage>();
             Container.RegisterTypeForNavigation<CreateTaskPage>();
             Container.RegisterTypeForNavigation<SchedulePage>();
+            Container.RegisterTypeForNavigation<GarbagePage>();
 
+            Container.RegisterType<ITaskMapper, TaskMapper>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ITaskService, TaskAPiService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITaskRepository, TaskRepository>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITaskService, TaskSQLiteService>(new ContainerControlledLifetimeManager());

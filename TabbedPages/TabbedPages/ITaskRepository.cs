@@ -10,6 +10,8 @@ namespace TabbedPages
 
         Task<IEnumerable<TaskDao>> FindAllAsync();
 
+        Task<IEnumerable<TaskDao>> FindDeletedItemsAsync();
+
         Task<TaskDao> FindByIdAsync(string id);
 
         Task<bool> DeleteToDoItemAsync(string id);

@@ -39,7 +39,6 @@
     <Compile Include="Behaviors\PageBehavior.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="Converter\DateConverter.cs" />
-    <Compile Include="Db\DataBaseHelper.cs" />
     <Compile Include="ITaskAPiService.cs" />
     <Compile Include="ITaskRepository.cs" />
     <Compile Include="Mappper\ITaskMapper.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="TaskSQLiteService.cs" />
     <Compile Include="ViewModels\IPageLoaderViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\GarbagePageViewModel.cs" />
     <Compile Include="ViewModels\SchedulePageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\CreateTaskPage.xaml.cs">
@@ -70,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GarbagePage.xaml.cs">
+      <DependentUpon>GarbagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ToDoPage.xaml.cs">
       <DependentUpon>ToDoPage.xaml</DependentUpon>
@@ -179,6 +182,12 @@
   <ItemGroup>
     <Content Include="Assets\delete.png" />
     <Content Include="Assets\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\GarbagePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.4.0.280\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.4.0.280\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
