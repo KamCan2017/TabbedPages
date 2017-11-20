@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using SQLite.Net;
+using System.IO;
 using TabbedPages.Db;
+using TabbedPages.Droid;
 
+[assembly: Xamarin.Forms.Dependency(typeof(SQLiteDroid))]
 namespace TabbedPages.Droid
 {
     public class SQLiteDroid : ISQLite
@@ -9,14 +12,18 @@ namespace TabbedPages.Droid
         {
         }
 
+
         #region ISQLite implementation
 
-        public string GetConnectionPath()
+        public SQLiteConnection GetConnection()
         {
-            var fileName = "ToDoDb.db3";
-            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            return Path.Combine(path, fileName);
+            var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.
+              SpecialFolder.Personal), Const.PhoneDataBaseName);
+
+            var platformAndroid = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+            return new SQLiteConnection(platformAndroid, path);
         }
+
 
         #endregion
     }

@@ -1,7 +1,9 @@
-﻿namespace TabbedPages.Db
+﻿using SQLite.Net;
+
+namespace TabbedPages.Db
 {
     public interface ISQLite
     {
-        string GetConnectionPath();
+        SQLiteConnection GetConnection();
     }
 }

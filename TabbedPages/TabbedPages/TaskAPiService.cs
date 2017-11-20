@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace TabbedPages
 {
-    public class TaskAPiService : ITaskAPiService
+    public class TaskAPiService : ITaskService
     {
         private HttpClient _client = new HttpClient();
         //const string _baseUrl = ""http://localhost:63005";

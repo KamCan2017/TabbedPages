@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite.Net.Attributes;
+using System;
 
 namespace TabbedPages.Daos
 {
+    [Table("Tasks")]
     public class TaskDao
     {
+        [PrimaryKey, AutoIncrement]
         public Guid ID { get; set; }
 
         public string Name { get; set; }

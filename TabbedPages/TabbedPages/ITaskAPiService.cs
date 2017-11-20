@@ -4,7 +4,7 @@ using TabbedPages.Daos;
 
 namespace TabbedPages
 {
-    public interface ITaskAPiService
+    public interface ITaskService
     {
         Task<TaskDao> SaveToDoItemAsync(TaskDao item);
 

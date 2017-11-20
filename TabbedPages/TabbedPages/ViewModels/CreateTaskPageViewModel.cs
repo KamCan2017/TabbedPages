@@ -17,11 +17,11 @@ namespace TabbedPages.ViewModels
         private DelegateCommand _deleteTaskCommand;
         private DelegateCommand _resetTaskCommand;
         private TaskModel _model;
-        private readonly ITaskAPiService _taskAPiService;
+        private readonly ITaskService _taskAPiService;
         private ITaskMapper _taskMapper = new TaskMapper();
 
         public CreateTaskPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
-            ITaskAPiService taskAPiService) :
+            ITaskService taskAPiService) :
             base(navigationService, eventAggregator)
         {
             _taskAPiService = taskAPiService;

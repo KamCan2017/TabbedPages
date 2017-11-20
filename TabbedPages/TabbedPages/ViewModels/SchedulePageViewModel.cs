@@ -13,12 +13,12 @@ namespace TabbedPages.ViewModels
     public class SchedulePageViewModel: ViewModelBase, IPageLoaderViewModel
     {
         private ObservableCollection<ScheduleModel> _schedules;
-        private readonly ITaskAPiService _taskAPiService;
+        private readonly ITaskService _taskAPiService;
         private bool _isBusy;
         private DelegateCommand _loadPageCommand;
 
         public SchedulePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
-             ITaskAPiService taskAPiService) :
+             ITaskService taskAPiService) :
             base(navigationService, eventAggregator)
         {
             _taskAPiService = taskAPiService;

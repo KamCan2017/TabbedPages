@@ -28,8 +28,8 @@ namespace TabbedPages
             Container.RegisterTypeForNavigation<CreateTaskPage>();
             Container.RegisterTypeForNavigation<SchedulePage>();
 
-            Container.RegisterType<ITaskAPiService, TaskAPiService>(new ContainerControlledLifetimeManager());
-
+            //Container.RegisterType<ITaskService, TaskAPiService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ITaskService, TaskSQLiteService>(new ContainerControlledLifetimeManager());
         }
     }
 }

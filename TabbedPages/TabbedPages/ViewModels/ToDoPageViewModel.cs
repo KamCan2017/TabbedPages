@@ -14,7 +14,7 @@ namespace TabbedPages.ViewModels
     {
         private ObservableCollection<TaskModel> _tasks;
         private DelegateCommand _goToCreateTaskPageCommand;
-        private readonly ITaskAPiService _taskAPiService;
+        private readonly ITaskService _taskAPiService;
         private ITaskMapper _taskMapper = new TaskMapper();
         private bool _isBusy;
         private DelegateCommand _refreshTaskPageCommand;
@@ -22,7 +22,7 @@ namespace TabbedPages.ViewModels
         private ScheduleModel _selectedSchedule;
 
         public ToDoPageViewModel(INavigationService navigationService, IEventAggregator eventAggregator,
-             ITaskAPiService taskAPiService) :
+             ITaskService taskAPiService) :
             base(navigationService, eventAggregator)
         {
             _taskAPiService = taskAPiService;
